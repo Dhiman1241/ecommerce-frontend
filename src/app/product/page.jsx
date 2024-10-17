@@ -5,6 +5,7 @@ import Api from '../Api'
 export default function page() {
 
   const uploadImage = async (e) => {
+    
     console.log('event ', e.target.files)
 
     let image = e.target.files[0]

@@ -1,5 +1,5 @@
 import moment from "moment";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { projectStorage } from "../../firebaseconfig";
 
 const Api = {
@@ -26,6 +26,32 @@ const Api = {
 
     return response;
   },
+
+  async deleteImage(imageUrl) {
+    let response = null;
+  
+    try {
+      // Create a reference to the file to delete based on the URL
+      const storageRef = ref(projectStorage, imageUrl);
+  
+      // Delete the file
+      await deleteObject(storageRef);
+  
+      response = {
+        status: 200,
+        message: "Image deleted successfully",
+      };
+      console.log("Image deleted successfully");
+    } catch (err) {
+      console.error("Delete Error: ", err);
+      response = {
+        status: 500,
+        error: err.message,
+      };
+    }
+  
+    return response;
+  }
 };
 
 export default Api;
