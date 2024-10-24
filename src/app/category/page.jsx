@@ -19,14 +19,10 @@ export default function page() {
   const [totalRecords, setTotalRecords] = useState(0);
 
 
-
-
   const resetForm = () => {
     setName("");
     setDescription("");
     setUpdateId("");
-
-
   }
 
   useEffect(() => {

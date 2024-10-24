@@ -1,6 +1,15 @@
 import moment from "moment";
 import { ref, uploadBytes, getDownloadURL, deleteObject } from "firebase/storage";
 import { projectStorage } from "../../firebaseconfig";
+import axios from "axios";
+
+const axiosInstance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      Authorization: "",
+  },
+});
 
 const Api = {
   async uploadImage(file) {
@@ -51,7 +60,21 @@ const Api = {
     }
   
     return response;
+  },
+
+   async addProduct (payload) {
+    return await axiosInstance.post('/product', payload)
+  },
+
+
+  async getProductById(id) {
+    return await axiosInstance.get(`/product/${id}`);
+  },
+
+  async updateProduct(payload, id) {
+    return await axiosInstance.put(`/product/${id}` , payload);
   }
+  
 };
 
 export default Api;
